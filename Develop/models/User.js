@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+//use a regex to validate email matches the correct input
 var validateEmail = (email) => {
     var regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     return regex.test(email)
@@ -8,7 +9,12 @@ var validateEmail = (email) => {
 const userSchema = new Schema(
     {
         //string, unique, required, trimmed
-        username: { type: String, unique: true, required: true, trim: true },
+        username: { 
+            type: String, 
+            unique: true, 
+            required: true, 
+            trim: true 
+        },
         //string, required, unique, must match valid email address --> Mongoose matching validation
         email: { 
             type: String, 
