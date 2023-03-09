@@ -14,28 +14,37 @@ connection.once('open', async () => {
     //empty array to hold the users
     const users = [];
 
+    const thoughtsArr = [];
+
     //loop to add users to the users array
     //username, email, thoughts, friends
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         const user = getRandomUser();
+        console.log(user);
         const username = user.username;
         const email = user.email;
         const thoughts = getRandomThought();
+        const thoughtUsername = "robertdavis"
 
         //create a random number of friends for each user
-        const numFriends = Math.floor(Math.random() * (users.length + 1));
-        const friends = getRandomArrItem(users, numFriends).map(user => user.username);
+        // const numFriends = Math.floor(Math.random() * (users.length + 1));
+        // const friends = getRandomArrItem(users, numFriends).map(user => user.username);
 
         users.push({
             username,
             email,
-            thoughts,
-            friends,
+            thoughts
+            // friends,
+        });
+
+        thoughtsArr.push({
+            username:thoughtUsername,
+            thoughtText:thoughts
         });
     }
 
-    //add thoughts to the Thought collection before users are added to User collection
-    await Thought.collection.insertMany(getRandomThought());
+    //add thoughts to the Thought collection
+    await Thought.collection.insertMany(thoughtsArr);
     
     //add users to the User collection
     await User.collection.insertMany(users);

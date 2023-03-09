@@ -1,3 +1,4 @@
+const { User } = require('../models');
 const Thought = require('../models/Thought');
 
 const getThought = (req, res) => {
@@ -19,7 +20,17 @@ const getSingleThought = (req, res) => {
 
 const createThought = (req, res) => {
     Thought.create(req.body)
-      .then((dbThoughtData) => res.json(dbThoughtData))
+      //updat user to add a new thought
+      .then((dbThoughtData) => {
+        console.log(dbThoughtData);
+        return User.findOneAndUpdate(
+          { _id: req.body.userId }, 
+          { $push: { thoughts: dbThoughtData._id } },
+          { new: true }
+        )
+      })
+      .then((userData) => {console.log(userData)
+      res.json(userData)})
       .catch((err) => res.status(500).json(err));
 }
 
@@ -73,7 +84,7 @@ const addReacion = (req, res) => {
 const removeReaction = (req, res) => {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { thoughtId: req.params.thoughtId } } },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
       .then((thought) =>
