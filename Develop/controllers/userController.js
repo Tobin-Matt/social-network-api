@@ -54,12 +54,14 @@ const updateUser = (req, res) => {
 }
 
 const deleteUser = (req, res) => {
+    console.log(req.params);
     User.findOneAndRemove({ _id: req.params.userId })
-        .then((err, user) => 
+        .then((user) => {
+            console.log(user);
             !user
                 ? res.status(404).json({ message: 'No user found with this id!' })
                 : res.status(200).json({ message: 'User deleted!' })
-        )
+        })
         .catch((err) => {
             console.log(err);
             res.status(500).json(err);
@@ -88,7 +90,7 @@ const addFriend = (req, res) => {
 const removeFriend = (req, res) => {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: { friendId: req.params.friendId } } },
+      { $pull: { friends:req.params.friendId } },
       { runValidators: true, new: true }
     )
       .then((user) =>

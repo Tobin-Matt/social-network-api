@@ -1,4 +1,5 @@
 const { Schema, Types } = require('mongoose');
+const dayjs = require('dayjs')
 
 const reactionSchema = new Schema(
   {
@@ -18,20 +19,15 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: timestamp => dayjs().format('YYYY-MM-DD HH:mm:ss')
     },
   },
   {
     toJSON: {
-      virtuals: true,
+      getters: true
     },
     id: false,
   }
 );
-
-reactionSchema
-    .virtual('formattedCreatedAt')
-    .get(function () {
-        return new Date(this.createdAt).toLocalString();
-    });
 
 module.exports = reactionSchema;
