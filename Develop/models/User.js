@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-//use a regex to validate email matches the correct input
+//regex to validate email matches the correct input
 var validateEmail = (email) => {
     var regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     return regex.test(email)
@@ -8,14 +8,12 @@ var validateEmail = (email) => {
 
 const userSchema = new Schema(
     {
-        //string, unique, required, trimmed
         username: { 
             type: String, 
             unique: true, 
             required: true, 
             trim: true 
         },
-        //string, required, unique, must match valid email address --> Mongoose matching validation
         email: { 
             type: String, 
             unique: true, 
@@ -47,7 +45,7 @@ const userSchema = new Schema(
     }
 );
 
-//create a virtual called "friendCount" that retrieves the length of the user's 'friends' array field on query
+//virtual that retrieves the length of the user's 'friends' array field on query
 userSchema
     .virtual('friendCount')
     .get(function () {

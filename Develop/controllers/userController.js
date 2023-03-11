@@ -1,12 +1,13 @@
 const { User, Thought } = require('../models');
 
+//get all Users
 const getUsers = (req, res) => {
     User.find()
         .then((users) => res.json(users))
         .catch((err) => res.status(500).json(err));
-    // res.status(200).json({message: 'Get Users'});
 }
 
+//get a single User
 const getSingleUser = (req, res) => {
     User.findOne({ _id: req.params.userId})
         .select('-__v')
@@ -19,21 +20,16 @@ const getSingleUser = (req, res) => {
         })
     .catch((err) => {console.log(err)
     res.status(500).json(err)});
-    // res.status(200).json({message: `Get User ${req.params.id}`});
 }
 
+//create a new User
 const createUser = (req, res) => {
     User.create(req.body)
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(500).json(err));
-    
-    // if(!req.body.text) {
-    //     res.status(400).json({message: 'Please create user'});
-    // }
-    
-    // res.status(200).json({message: 'Create User'});
 }
 
+//update an existing User
 const updateUser = (req, res) => {
     User.findOneAndUpdate(
         { _id: req.params.userId },
@@ -49,10 +45,9 @@ const updateUser = (req, res) => {
           console.log(err);
           res.status(500).json(err);
         });
-    
-    // res.status(200).json({message: `Update User ${req.params.id}`});
 }
 
+//delete an existing User
 const deleteUser = (req, res) => {
     console.log(req.params);
     User.findOneAndRemove({ _id: req.params.userId })
@@ -66,12 +61,11 @@ const deleteUser = (req, res) => {
             console.log(err);
             res.status(500).json(err);
         })
-
-    // res.status(200).json({message: `Delete User ${req.params.id}`});
 }
 
 const addFriend = (req, res) => {
     console.log(req.body);
+    //find user by Id and then update their friends array
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.body.friendId } },

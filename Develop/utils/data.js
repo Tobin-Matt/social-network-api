@@ -57,7 +57,7 @@ const reactions = [
     }
 ];
 
-// Get a random item given an array
+//get a random item for any given array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 const getRandomThought = () => getRandomArrItem(thoughts).thoughtText;

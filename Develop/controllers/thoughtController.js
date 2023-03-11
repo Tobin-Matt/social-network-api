@@ -1,12 +1,14 @@
 const { User } = require('../models');
 const Thought = require('../models/Thought');
 
+//get all Thoughts
 const getThought = (req, res) => {
     Thought.find()
         .then((thought) => res.json(thought))
         .catch((err) => res.status(500).json(err));
 }
 
+//get a single Thought
 const getSingleThought = (req, res) => {
     Thought.findOne({ _id: req.params.thoughtId})
         .select('-__v')
@@ -18,9 +20,10 @@ const getSingleThought = (req, res) => {
     .catch((err) => res.status(500).json(err));
 }
 
+//create a new Thought
 const createThought = (req, res) => {
     Thought.create(req.body)
-      //updat user to add a new thought
+      //update user to add a new thought
       .then((dbThoughtData) => {
         console.log(dbThoughtData);
         return User.findOneAndUpdate(
@@ -34,6 +37,7 @@ const createThought = (req, res) => {
       .catch((err) => res.status(500).json(err));
 }
 
+//update an existing Thought
 const updateThought = (req, res) => {
     Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
@@ -51,6 +55,7 @@ const updateThought = (req, res) => {
         });
 }
 
+//delete an existing Thought
 const deleteThought = (req, res) => {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
         .then((thought) => 

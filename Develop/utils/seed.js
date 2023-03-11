@@ -17,7 +17,6 @@ connection.once('open', async () => {
     const thoughtsArr = [];
 
     //loop to add users to the users array
-    //username, email, thoughts, friends
     for (let i = 0; i < 3; i++) {
         const user = getRandomUser();
         console.log(user);
