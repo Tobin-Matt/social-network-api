@@ -39,24 +39,6 @@ const thoughts = [
     }
 ];
 
-const reactions = [
-    {
-        reactionBody: "So true!"
-    },
-    {
-        reactionBody: "Love this!"
-    },
-    {
-        reactionBody: "I completely agree"
-    },
-    {
-        reactionBody: "This made me smile :)"
-    },
-    {
-        reactionBody: "Interesting perspective"
-    }
-];
-
 //get a random item for any given array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
