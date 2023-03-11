@@ -77,7 +77,7 @@ const addReacion = (req, res) => {
         !thought
           ? res
               .status(404)
-              .json({ message: 'No thought found with that ID' })
+              .json({ message: 'No reaction found with that ID' })
           : res.json(thought)
       })
       .catch((err) => {
@@ -90,14 +90,14 @@ const addReacion = (req, res) => {
 const removeReaction = (req, res) => {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { $pull: { reactions: req.params.reactionId } },
       { runValidators: true, new: true }
     )
       .then((thought) =>
         !thought
           ? res
               .status(404)
-              .json({ message: 'No thought found with that ID' })
+              .json({ message: 'No reaction found with that ID' })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));

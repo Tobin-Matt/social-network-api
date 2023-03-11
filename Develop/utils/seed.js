@@ -24,17 +24,12 @@ connection.once('open', async () => {
         const username = user.username;
         const email = user.email;
         const thoughts = getRandomThought();
-        const thoughtUsername = "robertdavis"
-
-        //create a random number of friends for each user
-        // const numFriends = Math.floor(Math.random() * (users.length + 1));
-        // const friends = getRandomArrItem(users, numFriends).map(user => user.username);
+        const thoughtUsername = user.username;
 
         users.push({
             username,
             email,
             thoughts
-            // friends,
         });
 
         thoughtsArr.push({
